@@ -1,0 +1,108 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{array}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{tabu}
+\usepackage{graphics}
+
+\title{Report}
+\author{your name}
+\date{date}
+
+\begin{document}
+\maketitle
+
+\section{Sanity Checks}
+Since we know that our dataset is balanced, we can do the following checks.
+\subsection{Loss}
+What do you expect the loss to be? Calculate it.
+After the random initialization of the weights do not train the model and calculate the loss. Is it similar to what you expected?
+\subsection{Accuracy}
+After the random initialization of the weights do not train the model and calculate the accuracy on one of the splits and report it. Is it similar to what you expected?
+
+\section{Hyperparameter optimization}
+
+\subsection{1-layer (0-hidden-layer) network}
+Explain your network architecture and the hyperparameters you tested. Create a table for the scores for each hyperparameter setting you tried. \textbf{To calculate these scores you cannot use test set.} An example table is below AF: activation function, HS: hidden layer size (learning rates and hidden layer sizes are just placeholders, you can write the learning rates you tried):\\
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|}
+    \hline
+    \multirow{2}{5em}{AF and HS} & \multicolumn{6}{c|}{Learning Rate} \\
+        & 0.01 & 0.003 & 0.001 & 0.0003 & 0.0001 & 0.00003 \\
+        \hline \hline
+        -, 256  & val & val & val & val & val & val \\
+        -, 512  & val & val & val & val & val & val \\
+        -, 1024  & val & val & val & val & val & val \\
+        \hline
+    \end{tabular}
+    \caption{1-layer network}
+    \label{tab:1layer}
+\end{table}
+
+
+\newpage
+\subsection{2-layer (1-hidden-layer) network}
+Explain your network architecture and the hyperparameters you tested. Create a table for the scores for each hyperparameter setting you tried. \textbf{To calculate these scores you cannot use test set.} An example table is below, S:sigmoid, T:tanh, R:ReLU(learning rates are just placeholders, you can write the learning rates you tried):\\
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+    \hline
+    \multirow{2}{5em}{Layer Activations} & \multicolumn{6}{c|}{Learning Rate} \\
+        & 0.01 & 0.003 & 0.001 & 0.0003 & 0.0001 & 0.00003 \\
+        \hline \hline
+        S, 256  & val & val & val & val & val & val \\
+        S, 512  & val & val & val & val & val & val \\
+        S, 1024  & val & val & val & val & val & val \\
+        T, 256  & val & val & val & val & val & val \\
+        T, 512  & val & val & val & val & val & val \\
+        T, 1024  & val & val & val & val & val & val \\
+        R, 256  & val & val & val & val & val & val \\
+        R, 512  & val & val & val & val & val & val \\
+        R, 1024  & val & val & val & val & val & val \\
+        \hline
+    \end{tabular}
+    \caption{2-layer network}
+    \label{tab:2layer}
+\end{table}
+
+
+\newpage
+\subsection{3-layer (2-hidden-layer) network}
+Explain your network architecture and the hyperparameters you tested. Create a table for the scores for each hyperparameter setting you tried. \textbf{To calculate these scores you cannot use test set.} An example table is below, S:sigmoid, T:tanh, R:ReLU(learning rates are just placeholders, you can write the learning rates you tried):\\
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+    \hline
+    \multirow{2}{5em}{Layer Activations} & \multicolumn{6}{c|}{Learning Rate} \\
+        & 0.01 & 0.003 & 0.001 & 0.0003 & 0.0001 & 0.00003 \\
+        \hline \hline
+        S, 256  & val & val & val & val & val & val \\
+        S, 512  & val & val & val & val & val & val \\
+        S, 1024  & val & val & val & val & val & val \\
+        T, 256  & val & val & val & val & val & val \\
+        T, 512  & val & val & val & val & val & val \\
+        T, 1024  & val & val & val & val & val & val \\
+        R, 256  & val & val & val & val & val & val \\
+        R, 512  & val & val & val & val & val & val \\
+        R, 1024  & val & val & val & val & val & val \\
+        \hline
+    \end{tabular}
+    \caption{3-layer network}
+    \label{tab:3layer}
+\end{table}
+
+\section{The best hyperparameter}
+\subsection{Results}
+Give the hyperparameters of the network that achieved best in validation. Calculate its test accuracy and report it. Draw its training and validation loss graph (both loss should appear in the same graph so that we can compare).
+
+\subsection{Overfitting countermeasures}
+What countermeasure did you take against overfitting? How may one understand when a network starts to overfit during training? You can use the train/validation loss graph in your explanation if you want.
+
+
+\section{Comments}
+This section can include your additional comments.
+
+\end{document}
+

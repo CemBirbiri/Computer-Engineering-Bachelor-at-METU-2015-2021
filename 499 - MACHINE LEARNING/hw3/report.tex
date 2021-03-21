@@ -1,0 +1,129 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{array}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{tabu}
+\usepackage{graphics}
+
+\title{Report}
+\author{your name}
+
+\begin{document}
+
+\maketitle
+\section{Part 1: Decision Tree}
+\subsection{Information Gain}
+Test results and referring to the tree diagram.
+
+\subsection{Gain Ratio}
+Test results and referring to the tree diagram.
+
+\subsection{Average Gini Index}
+Test results and referring to the tree diagram.
+
+\subsection{Gain Ratio with Chi-squared Pre-pruning}
+Test results and referring to the tree diagram.
+
+\subsection{Gain Ratio with Reduced Error Post-pruning}
+Test results and referring to the tree diagram.
+
+\maketitle
+\section{Part 2: Support Vector Machine}
+\subsection{First Part}
+Draw the resulting classifiers together with data points using draw\_svm function in draw.py and comment on how changing C affects the behavior of the classifier.
+
+\subsection{Second Part}
+Draw the resulting classifiers together with data points using draw\_svm function in draw.py and comment on how changing kernels affects the behavior of the classifier.
+
+\subsection{Third Part}
+The tables below have the example hyperparameters. Feel free the change them. Report the hyperparameters of your best model and its test accuracy.
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|c|}
+    \hline
+    \multirow{2}{5em}{gamma} & \multicolumn{5}{c|}{C} \\
+        & 0.01 & 0.1 & 1 & 10 & 100 \\
+        \hline \hline
+        -  & val & val & val & val & val \\
+        \hline
+    \end{tabular}
+    \caption{Linear kernel}
+    \label{tab:linear}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|c|}
+    \hline
+    \multirow{2}{5em}{gamma} & \multicolumn{5}{c|}{C} \\
+        & 0.01 & 0.1 & 1 & 10 & 100 \\
+        \hline \hline
+        0.00001  & val & val & val & val & val \\
+        0.0001  & val & val & val & val & val \\
+        0.001  & val & val & val & val & val \\
+        0.01  & val & val & val & val & val \\
+        0.1  & val & val & val & val & val \\
+        1  & val & val & val & val & val \\
+        \hline
+    \end{tabular}
+    \caption{RBF kernel}
+    \label{tab:rbf}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|c|}
+    \hline
+    \multirow{2}{5em}{gamma} & \multicolumn{5}{c|}{C} \\
+        & 0.01 & 0.1 & 1 & 10 & 100 \\
+        \hline \hline
+        0.00001  & val & val & val & val & val \\
+        0.0001  & val & val & val & val & val \\
+        0.001  & val & val & val & val & val \\
+        0.01  & val & val & val & val & val \\
+        0.1  & val & val & val & val & val \\
+        1  & val & val & val & val & val \\
+        \hline
+    \end{tabular}
+    \caption{Polynomial kernel}
+    \label{tab:poly}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|c|}
+    \hline
+    \multirow{2}{5em}{gamma} & \multicolumn{5}{c|}{C} \\
+        & 0.01 & 0.1 & 1 & 10 & 100 \\
+        \hline \hline
+        0.00001  & val & val & val & val & val \\
+        0.0001  & val & val & val & val & val \\
+        0.001  & val & val & val & val & val \\
+        0.01  & val & val & val & val & val \\
+        0.1  & val & val & val & val & val \\
+        1  & val & val & val & val & val \\
+        \hline
+    \end{tabular}
+    \caption{Sigmoid kernel}
+    \label{tab:sigmoid}
+\end{table}
+
+\newpage
+\subsection{Fourth part}
+\subsubsection{Without handling the imbalance problem}
+Report test accuracy. Can accuracy be a good performance metric?
+Report confusion matrix and comment on it. Report additional metrics here if you want.
+
+\subsubsection{Oversampling the minority class}
+Report your test accuracy, confusion matrix and comment on them.
+
+\subsubsection{Undersampling the majority class}
+Report your test accuracy, confusion matrix and comment on them.
+
+\subsubsection{Setting the class\_weight to balanced}
+Report your test accuracy, confusion matrix and comment on them.
+
+
+\end{document}
+
