@@ -1,0 +1,102 @@
+#/* $begin ncopy-ys */
+##################################################################
+# ncopy.ys - Copy a src block of len words to dst.
+# Return the number of positive words (>0) contained in src.
+#
+# Ufuk cem Birbiri 2171379
+#
+
+# I tried to use  "iaddq" instruction here, which I implemented in "pipe-full.hcl" file, bI know it makes the code faster but I couldn't use it since I got errors every time.So I decided not to use it sadly :/
+# 
+#I  reordered some instructions and placed jumps
+# 		   smartly to avoid unnecessary bubbles.
+#I used grouping of 2  and used a jump table to avoid incrementing src and dst one by one
+# I tried to be careful against Load-Use Hazards (data dependence), whenever I  
+# loaded a register with a value I tried to not to use that register immediately, if 
+# possible, I inserted at least 1 instruction in between (loading and usage).
+#
+##################################################################
+# Do not modify this portion
+# Function prologue.
+# %rdi = src, %rsi = dst, %rdx = len
+ncopy:
+
+##################################################################
+# You can modify this portion
+	# Loop header
+
+	xorq %rax,%rax		# count = 0;
+	andq %rdx,%rdx		# len <= 0?
+	jle Done		# if so, goto Done:
+
+Loop:
+	
+	irmovq $1, %r10
+	subq %r10, %rdx		# len--
+	andq %rdx,%rdx		# len <= 0?
+	jle one_element		# if so, goto Done:
+
+	#irmovq $1, %r8     # len++
+	#addq %r8, %rdx
+
+	mrmovq (%rdi), %r10	# read val from src...
+	rmmovq %r10, (%rsi)	# ...and store it to dst
+
+	mrmovq 8(%rdi), %r11	# read val from src...
+	rmmovq %r11, 8(%rsi)	# ...and store it to dst
+
+	andq %r10, %r10		# val <= 0?
+	jle Npos1		# if so, goto Npos1:
+	irmovq $1, %r8
+	addq %r8, %rax		# count++
+	#iaddq $1, %rax
+
+Npos1:
+	andq %r11, %r11		# val <= 0?
+	jle Npos		# if so, goto Npos:
+
+	irmovq $1, %r8
+	addq %r8, %rax		# count++
+	#iaddq $1, %rax
+
+
+
+Npos:	
+	irmovq $1, %r10
+	subq %r10, %rdx		# len--
+	
+	irmovq $16, %r10
+	addq %r10, %rdi		# src++
+	addq %r10, %rsi		# dst++
+	
+
+	andq %rdx,%rdx		# len > 0?
+	je Done			# if so, goto Loop:
+
+	#andq %rdx,%rdx		# len > 0?
+	jg Loop			# if so, goto Loop:
+
+
+one_element:
+
+	
+
+
+	mrmovq (%rdi), %r10	# read val from src...
+	rmmovq %r10, (%rsi)	# ...and store it to dst
+
+	andq %r10, %r10		# val <= 0?
+	jle Done		# if so, goto Npos:
+	irmovq $1, %r12
+	addq %r12, %rax		# count++
+
+
+##################################################################
+# Do not modify the following section of code
+# Function epilogue.
+Done:
+	ret
+##################################################################
+# Keep the following label at the end of your function
+End:
+#/* $end ncopy-ys */

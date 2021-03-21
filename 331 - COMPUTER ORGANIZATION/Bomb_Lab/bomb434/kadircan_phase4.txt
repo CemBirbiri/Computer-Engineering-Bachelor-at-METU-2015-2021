@@ -1,0 +1,93 @@
+000000000040111a <func4>:
+  40111a:	b8 00 00 00 00       	mov    $0x0,%eax
+  40111f:	83 ff 0a             	cmp    $0xa,%edi
+  401122:	7f 2d                	jg     401151 <func4+0x37>
+  401124:	89 f0                	mov    %esi,%eax
+  401126:	83 ff 0a             	cmp    $0xa,%edi
+  401129:	74 26                	je     401151 <func4+0x37>
+  40112b:	41 54                	push   %r12
+  40112d:	55                   	push   %rbp
+  40112e:	53                   	push   %rbx
+  40112f:	89 f5                	mov    %esi,%ebp
+  401131:	89 fb                	mov    %edi,%ebx
+  401133:	8d 7f 01             	lea    0x1(%rdi),%edi
+  401136:	e8 df ff ff ff       	callq  40111a <func4>
+  40113b:	44 8d 64 05 00       	lea    0x0(%rbp,%rax,1),%r12d #rbp + rax
+  401140:	8d 7b 02             	lea    0x2(%rbx),%edi
+  401143:	89 ee                	mov    %ebp,%esi
+  401145:	e8 d0 ff ff ff       	callq  40111a <func4>
+  40114a:	44 01 e0             	add    %r12d,%eax
+  40114d:	5b                   	pop    %rbx
+  40114e:	5d                   	pop    %rbp
+  40114f:	41 5c                	pop    %r12
+  401151:	f3 c3                	repz retq 
+
+0000000000401153 <phase_4>:
+  401153:	48 83 ec 18          	sub    $0x18,%rsp
+  401157:	64 48 8b 04 25 28 00 	mov    %fs:0x28,%rax
+  40115e:	00 00 
+  401160:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+  401165:	31 c0                	xor    %eax,%eax
+  401167:	48 89 e1             	mov    %rsp,%rcx #2nd
+  40116a:	48 8d 54 24 04       	lea    0x4(%rsp),%rdx #1st 
+  40116f:	be cd 2a 40 00       	mov    $0x402acd,%esi
+  401174:	e8 17 fb ff ff       	callq  400c90 <__isoc99_sscanf@plt>
+  401179:	83 f8 02             	cmp    $0x2,%eax
+  40117c:	75 0b                	jne    401189 <phase_4+0x36>
+  40117e:	8b 04 24             	mov    (%rsp),%eax
+  401181:	83 e8 02             	sub    $0x2,%eax
+  401184:	83 f8 02             	cmp    $0x2,%eax
+  401187:	76 05                	jbe    40118e <phase_4+0x3b>
+  401189:	e8 43 06 00 00       	callq  4017d1 <explode_bomb>
+  40118e:	8b 34 24             	mov    (%rsp),%esi
+  401191:	bf 08 00 00 00       	mov    $0x8,%edi
+  401196:	e8 7f ff ff ff       	callq  40111a <func4>
+  40119b:	3b 44 24 04          	cmp    0x4(%rsp),%eax
+  40119f:	74 05                	je     4011a6 <phase_4+0x53>
+  4011a1:	e8 2b 06 00 00       	callq  4017d1 <explode_bomb>
+  4011a6:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  4011ab:	64 48 33 04 25 28 00 	xor    %fs:0x28,%rax
+  4011b2:	00 00 
+  4011b4:	74 05                	je     4011bb <phase_4+0x68>
+  4011b6:	e8 25 fa ff ff       	callq  400be0 <__stack_chk_fail@plt>
+  4011bb:	48 83 c4 18          	add    $0x18,%rsp
+  4011bf:	c3                   	retq
+
+
+  0x00000000004011de <+0>: push   %rbp
+   0x00000000004011df <+1>: push   %rbx
+   0x00000000004011e0 <+2>: sub    $0x18,%rsp
+   0x00000000004011e4 <+6>: mov    %rdi,%rbp
+   0x00000000004011e7 <+9>: mov    %fs:0x28,%rax
+   0x00000000004011f0 <+18>: mov    %rax,0x8(%rsp)
+   0x00000000004011f5 <+23>: xor    %eax,%eax
+   0x00000000004011f7 <+25>: callq  0x401491 <string_length>
+   0x00000000004011fc <+30>: cmp    $0x6,%eax
+   0x00000000004011ff <+33>: je     0x401206 <phase_5+40>
+   0x0000000000401201 <+35>: callq  0x40180f <explode_bomb>
+   0x0000000000401206 <+40>: mov    $0x0,%ebx
+   0x000000000040120b <+45>: movsbl 0x0(%rbp,%rbx,1),%edi
+   0x0000000000401210 <+50>: callq  0x401586 <from_char_to_int>
+   0x0000000000401215 <+55>: and    $0xf,%eax
+   0x0000000000401218 <+58>: movzbl 0x402860(%rax),%eax
+   0x000000000040121f <+65>: mov    %al,(%rsp,%rbx,1)
+   0x0000000000401222 <+68>: add    $0x1,%rbx
+   0x0000000000401226 <+72>: cmp    $0x6,%rbx
+   0x000000000040122a <+76>: jne    0x40120b <phase_5+45>
+   0x000000000040122c <+78>: movb   $0x0,0x6(%rsp)
+   0x0000000000401231 <+83>: mov    $0x40280e,%esi
+   0x0000000000401236 <+88>: mov    %rsp,%rdi
+   0x0000000000401239 <+91>: callq  0x40151f <strings_not_equal>
+   0x000000000040123e <+96>: test   %eax,%eax
+   0x0000000000401240 <+98>: je     0x401247 <phase_5+105>
+   0x0000000000401242 <+100>: callq  0x40180f <explode_bomb>
+   0x0000000000401247 <+105>: mov    0x8(%rsp),%rax
+   0x000000000040124c <+110>: xor    %fs:0x28,%rax
+   0x0000000000401255 <+119>: je     0x40125c <phase_5+126>
+   0x0000000000401257 <+121>: callq  0x400be0 <__stack_chk_fail@plt>
+   0x000000000040125c <+126>: add    $0x18,%rsp
+   0x0000000000401260 <+130>: pop    %rbx
+   0x0000000000401261 <+131>: pop    %rbp
+   0x0000000000401262 <+132>: retq  
+
+<?138:

@@ -1,0 +1,51 @@
+# Ufuk Cem Birbiri 
+# 2171379
+
+	.pos 0   
+
+init:
+	irmovq stack, %rsp     
+	irmovq stack, %rbp     
+	call main             
+	halt                  
+
+# Sample linked list
+.align 8
+ele1:
+	.quad 0x00a
+	.quad ele2
+ele2:
+	.quad 0x0b0
+	.quad ele3
+ele3:
+	.quad 0xc00
+	.quad 0
+
+main:
+	irmovq ele1, %rdi
+	call sum_list   # sum_list(ele1)
+	ret
+
+sum_list:
+	andq %rdi, %rdi   
+	je end
+	xorq %rax, %rax         #sum = 0
+    irmovq $8, %rcx         # rcx = 8
+
+loop:
+	mrmovq (%rdi), %rdx   # link-listin ilk elemani rdx'te
+	addq %rdx, %rax       # sum + rdx (ilk eleman)
+	addq %rcx, %rdi		  # rdi 8 bitlik artis yasadi
+	mrmovq (%rdi), %rdi   # rdi simdi link listin 2. elemanini tutuyor
+	andq %rdi, %rdi      
+	jne loop            
+
+end:
+	ret
+
+
+
+
+
+	.pos 0x100
+stack:

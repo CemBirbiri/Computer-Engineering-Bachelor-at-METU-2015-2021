@@ -1,0 +1,322 @@
+`timescale 1ns / 1ps 
+module lab3_2(
+			input[3:0] number,
+			input CLK, 
+			input selection,
+			input mode,
+			input clear,
+			output reg [7:0] digit1,
+			output reg [7:0] digit0,
+			output reg [7:0] count1,
+			output reg [7:0] count0,
+			output reg warning
+    );
+   //Modify the lines below to implement your design .
+	integer prime_c1,prime_c0,shift_c1,shift_c0;
+   initial begin
+   		count0=0;
+	   	count1=0;
+	   	digit1=0;
+	   	digit0=0;
+	   	warning=0;
+
+
+   end
+	
+   always@(posedge CLK) begin
+
+	   if(clear==1)begin /* clear 1 ise her seyi sifirla*/
+	   	count0=0;
+	   	count1=0;
+	   	digit1=0;
+	   	digit0=0;
+	   	warning=0;
+			prime_c1=0;
+			prime_c0=0;
+			shift_c1=0;
+			shift_c0=0;
+
+
+	   	end
+	   	else begin   /* clear 0 ise oyun baslasin*/
+
+	   		if(selection==0)begin  /* PRIME*/
+					count1=prime_c1;
+					count0=prime_c0;
+
+	   			if( number==4'b0010 && number==4'b0011 && number==4'b0101 && number==4'b0111 && number==4'b1011 && number==4'b1101 ) begin  /*prime numbers geldiyse*/
+	   			//if( number==2 && number==3 && number==5 && number==7 && number==11 && number==13 ) begin  //PRIME NUMBER GELDYSE
+	   				warning=0;
+
+	   				if(mode==1)begin        /*MODE== 1   NEXT PRIME*/
+	   					if( number==4'b0010 ) begin // 2 geldiyse
+	   						if(count1==8) begin count1=0; end
+	   						else begin count1=count1+1; end
+								
+	   						digit0= number;
+	   						digit1=3;
+
+	   					end
+	   					else if( number==4'b0011 ) begin // 3 geldiyse
+	   						if(count1==8) begin count1=0; end
+	   						else begin count1=count1+1; end
+
+	   						digit0= number;
+	   						digit1= 5;
+	   					end
+	   					else if( number==4'b0101 ) begin // 5 geldiyse
+	   						if(count1==8) begin count1=0; end
+	   						else begin count1=count1+1; end
+
+	   						digit0= number;
+	   						digit1=7;
+	   					end	   					
+	   					else if( number==4'b0111 ) begin // 7 geldiyse
+	   						if(count1==8) begin count1=0; end
+	   						else begin count1=count1+1; end
+
+	   						digit0= number;
+	   						digit1=9;
+	   					end	 
+	   					else if( number==4'b1011 ) begin // 11 geldiyse
+	   						if(count1==8) begin count1=0; end
+	   						else begin count1=count1+1; end
+
+	   						digit0= number;
+	   						digit1=13;
+	   					end	 
+	   					else begin                     // 13 geldiyse
+	   						if(count1==7) begin count1=0; end
+	   						else begin count1=count1+1; end
+	   						digit0=number;
+	   						digit1=2;
+
+	   					end
+
+	   				end
+	   				else begin             /*MODE==0   PREVIOUS PRIME */
+
+	   					if( number==4'b0010 ) begin // 2 geldiyse
+	   						if(count0==8) begin count0=0; end
+	   						else begin count0=count0+1; end
+
+	   						digit0= number;
+	   						digit1=13;
+
+	   					end
+	   					else if( number==4'b0011 ) begin // 3 geldiyse
+	   						if(count0==8) begin count0=0; end
+	   						else begin count0=count0+1; end
+
+	   						digit0= number;
+	   						digit1=2;
+	   					end
+	   					else if( number==4'b0101 ) begin // 5 geldiyse
+	   						if(count0==8) begin count0=0; end
+	   						else begin count0=count0+1; end
+
+	   						digit0= number;
+	   						digit1=3;
+	   					end	   					
+	   					else if( number==4'b0111 ) begin // 7 geldiyse
+	   						if(count0==8) begin count0=0; end
+	   						else begin count0=count0+1; end
+
+	   						digit0= number;
+	   						digit1=5;
+	   					end	 
+	   					else if( number==4'b1011 ) begin // 11 geldiyse
+	   						if(count0==8) begin count0=0; end
+	   						else begin count0=count0+1; end
+
+	   						digit0= number;
+	   						digit1=7;
+	   					end	 
+	   					else begin                     // 13 geldiyse
+	   						if(count0==8) begin count0=0; end
+	   						else begin count0=count0+1; end
+	   						digit0=number;
+	   						digit1=11;
+
+	   					end
+	   				end
+
+
+	   			end
+
+	   			else begin  /*prime numbers gelmediyse*/
+
+	   				warning=1;
+
+
+	   			end
+
+
+					prime_c1=count1;
+					prime_c0=count0;
+
+	   		end
+
+	   		else begin  /*NON_PRIME selection==1*/
+
+					count1=shift_c1;
+					count0=shift_c0;
+	   			if( number==4'b0010 && number==4'b0011 && number==4'b0101 && number==4'b0111 && number==4'b1011 && number==4'b1101 ) begin /* prime numbers geldiyse*/
+	   			//if( number==2 && number==3 && number==5 && number==7 && number==11 && number==13 ) begin  //PRIME NUMBER GELDYSE
+
+	   				warning=1;
+						
+
+	   			end
+	   			else begin  //prime disinda number geldiyse
+						
+	   				warning=0;
+	   				if(mode==1)begin //MOD==1 shift left
+	   					if(number==4'b0001)begin   // 1 gelirse
+	   						digit0=number;
+	   						digit1=2;
+								if(count1==8) begin count1=0; end
+								else begin count1=count1+1; end
+
+	   					end
+	   					else if(number==4'b0100) begin //4 gelirse
+	   						digit0=number;
+	   						digit1=8;
+								if(count1==8) begin count1=0; end
+								else begin count1=count1+1; end
+
+	   					end	   					
+	   					else if(number==4'b0110) begin // 6 gelirse
+	   						digit0=number;
+	   						digit1=12;
+								if(count1==8) begin count1=0; end
+								else begin count1=count1+1; end
+
+	   					end	
+	   					else if(number==4'b1000) begin // 8 gelirse
+	   						digit0=number;
+	   						digit1=0;
+								if(count1==8) begin count1=0; end
+								else begin count1=count1+1; end
+
+	   					end		   						   					
+	   					else if(number==4'b1001) begin // 9 gelirse
+	   						digit0=number;
+	   						digit1=2;
+								if(count1==8) begin count1=0; end
+								else begin count1=count1+1; end
+
+	   					end	
+	   					else if(number==4'b1010) begin // 10 gelirse
+	   						digit0=number;
+	   						digit1=4;
+								if(count1==8) begin count1=0; end
+								else begin count1=count1+1; end
+
+	   					end	
+	   					else if(number==4'b1100) begin // 12 gelirse
+	   						digit0=number;
+	   						digit1=8;
+								if(count1==8) begin count1=0; end
+								else begin count1=count1+1; end
+
+	   					end	
+	   					else if(number==4'b1110) begin // 14 gelirse
+	   						digit0=number;
+	   						digit1=12;
+								if(count1==8) begin count1=0; end
+								else begin count1=count1+1; end
+
+	   					end	
+	   					/*else if(number==4'b1111)begin  15 gelirse*/
+	   					else begin
+	   						digit0=number;
+	   						digit1=14;
+								if(count1==8) begin count1=0; end
+								else begin count1=count1+1; end
+
+	   					end	
+	   				end
+	   				else begin  //MOD==0 shift right
+	   					if(number==4'b0001)begin   // 1 gelirse
+	   						digit0=number;
+	   						digit1=0;
+								if(count0==8) begin count0=0; end
+								else begin count0=count0+1; end
+
+	   					end
+	   					else if(number==4'b0100) begin //4 gelirse
+	   						digit0=number;
+	   						digit1=2;
+								if(count0==8) begin count0=0; end
+								else begin count0=count0+1; end
+
+	   					end	   					
+	   					else if(number==4'b0110) begin // 6 gelirse
+	   						digit0=number;
+	   						digit1=3;
+								if(count0==8) begin count0=0; end
+								else begin count0=count0+1; end
+
+	   					end	
+	   					else if(number==4'b1000) begin // 8 gelirse
+	   						digit0=number;
+	   						digit1=4;
+								if(count0==8) begin count0=0; end
+								else begin count0=count0+1; end
+
+	   					end		   						   					
+	   					else if(number==4'b1001) begin // 9 gelirse
+	   						digit0=number;
+	   						digit1=4;
+								if(count0==8) begin count0=0; end
+								else begin count0=count0+1; end
+
+	   					end	
+	   					else if(number==4'b1010) begin // 10 gelirse
+	   						digit0=number;
+	   						digit1=5;
+								if(count0==8) begin count0=0; end
+								else begin count0=count0+1; end
+
+	   					end	
+	   					else if(number==4'b1100) begin // 12 gelirse
+	   						digit0=number;
+	   						digit1=6;
+								if(count0==8) begin count0=0; end
+								else begin count0=count0+1; end
+
+	   					end	
+	   					else if(number==4'b1110) begin // 14 gelirse
+	   						digit0=number;
+	   						digit1=7;
+								if(count0==8) begin count0=0; end
+								else begin count0=count0+1; end
+
+	   					end	
+	   					/*else if(number==4'b1111)begin  15 gelirse*/
+	   					else begin
+	   						digit0=number;
+	   						digit1=7;
+								if(count0==8) begin count0=0; end
+								else begin count0=count0+1; end
+
+	   					end	
+
+	   				end
+
+	   			end 
+
+	   			shift_c1=count1;
+	   			shift_c0=count0;
+	   		end 
+
+			
+	   	end // clear 0 endi
+
+
+ 
+   end  //always endi
+
+endmodule
+
